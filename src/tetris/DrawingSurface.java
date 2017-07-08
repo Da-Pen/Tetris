@@ -67,6 +67,5 @@ public class DrawingSurface extends JPanel implements ActionListener{
     public void actionPerformed(ActionEvent e){
         map.update();
         repaint();
-        System.out.println(e);
     }
 }

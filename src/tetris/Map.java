@@ -22,7 +22,7 @@ public class Map {
     private boolean gameOver = false;
     
     private int score;
-    final private int DOWNMULTIPLE = 10;//the multiplier to the normal speed when down is clicked
+    final private int DOWNMULTIPLE = 7;//the multiplier to the normal speed when down is clicked
     long lastTime; // the time of the beginning of the last interval
     final private int initialLoopTime = 600;// milliseconds per loop
     private int normalLoopTime = initialLoopTime;
@@ -43,15 +43,11 @@ public class Map {
     final private int blockSpacing = 1;//spacing between squares
     //0 = empty, 1 = landed block, 2 = active block
     private int[][] grid = new int[mapH][mapW];
-    public String getBlock(String a){
-        return "{ {"+a.charAt(0)+", "+a.charAt(1)+"}, {"+a.charAt(2)+", "+a.charAt(3)+"}, {"+a.charAt(4)+", "+a.charAt(5)+"}, {"+a.charAt(6)+", "+a.charAt(7)+"}, {"
-                +a.charAt(8)+", "+a.charAt(9)+"} },\n";
-    }
+
     int num5 = 18;
     final private int[][][] blockTypes = {
         ////5 squares////
-        //line
-        { {0, 0}, {0, 1}, {0, 2}, {0, 3}, {0, 4} },
+        { {0, 0}, {1, 0}, {2, 0}, {3, 0}, {4, 0} },
         { {0, 0}, {1, 0}, {2, 0}, {3, 0}, {3, 1} },
         { {0, 0}, {1, 0}, {2, 0}, {3, 0}, {1, 1} },
         { {0, 0}, {1, 0}, {2, 0}, {3, 0}, {2, 1} },
@@ -71,28 +67,21 @@ public class Map {
         { {0, 0}, {0, 1}, {1, 1}, {1, 2}, {2, 1} },//index 17
 
         ////4 squares////
-        //Square
-        { {0, 0}, {0, 1}, {1, 0}, {1, 1}, {0, 0} },
-        //"S"
-        { {1, 0}, {2, 0}, {0, 1}, {1, 1}, {1, 0} },
-        //"Z"
-        { {0, 0}, {1, 0}, {1, 1}, {2, 1}, {0, 0} },
-        //Line
-        { {0, 0}, {1, 0}, {2, 0}, {3, 0}, {0, 0} },
-        //"J"
-        { {1, 0}, {1, 1}, {1, 2}, {0, 2}, {1, 0} },
-        //"L"
-        { {0, 0}, {1, 0}, {2, 0}, {3, 0}, {0, 0} },
-        //"T"
-        { {0, 0}, {1, 0}, {2, 0}, {1, 1}, {0, 0} },
+        { {0, 0}, {0, 1}, {1, 0}, {1, 1}, {0, 0} },//Square
+        { {1, 0}, {2, 0}, {0, 1}, {1, 1}, {1, 0} },//"S"
+        { {0, 0}, {1, 0}, {1, 1}, {2, 1}, {0, 0} },//"Z"
+        { {0, 0}, {1, 0}, {2, 0}, {3, 0}, {0, 0} },//Line
+        { {1, 0}, {1, 1}, {1, 2}, {0, 2}, {1, 0} },//"J"
+        { {0, 0}, {1, 0}, {2, 0}, {3, 0}, {0, 0} },//"L"
+        { {0, 0}, {1, 0}, {2, 0}, {1, 1}, {0, 0} },//"T"
+        
         ////3 squares////
-        //straight line
-        { {0, 0}, {1, 0}, {2, 0}, {0, 0}, {0, 0} },
-        //"Corner"
-        { {0, 0}, {1, 0}, {0, 1}, {0, 0}, {0, 0} },
+        { {0, 0}, {1, 0}, {2, 0}, {0, 0}, {0, 0} },//straight line
+        { {0, 0}, {1, 0}, {0, 1}, {0, 0}, {0, 0} },//"Corner"
+        
         ////2 squares////
-        //line
-        { {0, 0}, {1, 0}, {0, 0}, {0, 0}, {0, 0} },
+        { {0, 0}, {1, 0}, {0, 0}, {0, 0}, {0, 0} },//line
+        
         ////1 square////
         { {0, 0}, {0, 0}, {0, 0}, {0, 0}, {0, 0} }
     };
@@ -100,13 +89,6 @@ public class Map {
         return (int)(Math.random()*(max-min+1)) + min;
     }
     public void newBlock(){//add a new block to the map
-        /*System.out.println(  getBlock("1001112112")
-                            +getBlock("0111212002")
-                            +getBlock("2021111201")
-                            +getBlock("0001112122")
-                            +getBlock("0001111221")
-                
-                            );*/
         
         int blockNum;
         
@@ -117,7 +99,7 @@ public class Map {
             blockNum = randRange(num5, blockTypes.length-1);
         }
         int x = 4;
-        int y = 0;
+        int y = 2;
         for (int i = 0; i < 5; i++) {//for each square in the block
             grid[y+blockTypes[blockNum][i][1]][x+blockTypes[blockNum][i][0]] = 2;
         }
@@ -168,9 +150,6 @@ public class Map {
                 //create a new active block
                 newBlock();
             }
-           // if(gameOver){
-             //   reset();
-           // }
             
         }
         if(leftClicked && canMoveLeft()){
