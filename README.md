@@ -9,5 +9,4 @@ The code for this game was written in java, using 2DGraphics to display graphics
 # Installation
 If you just want the game, please navigate to the folder named "dist" and download "Tetris.jar". If you would like the game with the source code, download the entire folder.
 
-# Credits
-- Programmer: Daniel Peng
+![alt text](http://dpeng.me/Tetris-Gameplay.png)
